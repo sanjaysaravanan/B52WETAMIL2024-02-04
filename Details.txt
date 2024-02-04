@@ -1,0 +1,364 @@
+
+Redux:
+
+  One more reducer for more understanding
+
+  Local Storage with Redux
+
+  Tile Game Completion
+
+Database:
+  A database is an organized collection of structured/unstructured information, or data, 
+  typically stored electronically in a computer system. 
+  
+  A database is usually 
+  controlled by a database management system (DBMS).
+    Using this we can do CRUD operations on the database
+
+  SQL --> Structured Query Language
+    Language used to structurallly design the database & query the database which responds with data
+  
+  Desinging a D for any application:
+
+    Instagram: 
+
+      posts:
+        image: TEXT ( URL )
+        likesCount: INT
+        comments: INT
+        caption: TEXT
+        username: VARCHAR(255)
+      
+      users:
+        name: VarChar(255)
+        mobile: VarChar(10)
+        profilePic: TEXT ( URL )
+        bio: TEXT
+        username: VARCHAR(255)
+        following: INT
+        followers: INT
+        isVerified: BOOL
+
+    datatypes in sql
+    basic types 
+      varchar(size) - string, 
+      INT(size), 
+      FLOAT(size, d), 
+      DATE
+      BLOB(size) / TEXT (CDN URL)- images/vidoes
+        usually not suggested to used because of the uncertain size and type of the media which can load the DB size.
+        Preferred way is CDN ( Content Delivery Network ) which can serve the images or videos hover internet
+  
+    several more refer - https://www.w3schools.com/sql/sql_datatypes.asp
+
+  Structuring of Data --> Design the Relationship between objects or entities
+
+  Relational DB:
+
+    Data / Objects are related together.
+
+    Primary Key ( unique value for single record )
+      posts:
+        id: string - INT - Primary Key
+        image: TEXT ( URL )
+        likesCount: INT
+        comments: INT
+        caption: TEXT
+        username: VARCHAR(255)
+
+      users:
+        name: VarChar(255)
+        mobile: VarChar(10)
+        profilePic: TEXT ( URL )
+        bio: TEXT
+        username: VARCHAR(255) - Primary Key
+        email: VARCHAR(255)
+        following: INT
+        followers: INT
+        isVerified: BOOL
+
+    Foreign_Key for Tables like ( Posts, Comments ) 
+
+      a key which relates one table record to another table records
+      should be Primary key for the first
+
+      user --> posts
+
+      users:
+        name: VarChar(255)
+        mobile: VarChar(10)
+        profilePic: TEXT ( URL )
+        bio: TEXT
+        username: VARCHAR(255) - Primary Key
+        email: VARCHAR(255)
+        following: INT
+        followers: INT
+        isVerified: BOOL
+
+      posts:
+        id: string - INT - Primary Key
+        image: TEXT ( URL )
+        likesCount: INT
+        comments: INT
+        caption: TEXT
+        username: VARCHAR(255) - Foreign Key
+
+  Entity Relationship between tables/objects,
+    one-to-one
+    one-to-many (user ---> posts)
+    many-to-one (posts ---> user)
+    many-to-many ( rare scenario )
+  
+  Prime Video Objects:
+
+    Movie --> name, storyline, genre, year, directors, producers, stars
+
+    Movies
+      id name
+      1  Pathan 
+      2  Leo
+
+    Stars:
+      id    name        gender   noOfMovies
+      1     SRK         Male      100
+      2     Ranveer     Male      30
+      3     Salman Khan Male      150
+
+    genre table
+      id  name               description
+      1   suspense           Sudden Twist in the plot
+      2   Drama              Melodramatic in the plot
+      3   Thriller           Thriller in the plot
+
+
+    Movie-Genres ( Linking table or the relating table )
+      id movie-id genre-id
+      1    1        1
+      2    1        2
+
+    Casting:
+      id ( Primary key)
+      movie_id ( Foreign_key --> primary key of some other table )
+      star_id
+
+      id    movie-id    star-id
+      1       1          1
+      2       1          3
+
+    Movie:
+      id -- movie id ( Primary Key )
+      name --> string varchar
+      storyline --> string varchar
+
+      Id Name                Story-Line
+      1  Jack Ryan           Detective Thriller
+
+  Relationship between Objects:
+
+    1. Primary key
+    2. Foreign_key
+
+    Eg:
+      School/College maintaining students/teachers data in structured manner 
+      like below,
+        Student:
+          student_id ( int ) - Primary key
+          student_name (  )
+          student_class/year
+          student_department
+          class_teacher ( Teacher Id - Foreign_key)
+        Teacher:
+          teacher_id ( Primary key )
+          teacher_name
+          teacher_subject
+        Subjects:
+          name
+          id (primary key)
+          teacher ( teacher_id ) ( FOREIGN KEY )
+        Marks:
+          subject_id ( FOREIGN KEY )
+          mark
+          mark_id (primary key)
+          student_id ( FOREIGN KEY )
+
+        Relationship between the teacher and student,
+          teacher ---> students (one to many)
+        
+        Subjects & Teacher,
+          teacher ---> subjects
+          one - to - one
+        
+        Marks and Subjects:
+          Marks --> subjects, students (many to many)
+
+          Linking Table - Evaluation as Table 
+
+      Train Ticket Booking,
+        Train:
+          train_number
+          train_name
+          train_status
+        Customers:
+          cust_id
+          cust_name
+          cust_email
+          cust_phone
+        Bookings: (Tickets)
+          pnr
+          customer_id (foreign_key)
+          seats
+          tain_number (foreign_key)
+          date
+  
+  Exercise Design a DB for Shopping Mart including,
+    Customers, Products, Orders related Cart_id/customer_id (), Cart ( multiple entries of product with same cart_id )
+
+DBMS:
+  Database Management System is a software application/service used to 
+  manage the operations( CRUD ) in the DB.
+
+MySql:
+  MySQL is a Structural database management system.
+
+MySql Engine:
+  A storage engine is a software module that a database management system uses 
+  to do create, read, update data in a database.
+
+basics:
+  operators - https://www.w3schools.com/sql/sql_operators.asp
+
+Queries:
+  DDL:
+    Data Definition Language
+    CREATE, DROP, ALTER
+
+  DML:
+    Data Manipulation Language
+    INSERT, UPDATE, DELETE
+
+  DQL:
+    Data Query Language 
+    SELECT
+
+
+
+Task:
+
+  Design a DB for IMDB
+
+  Desing the DB Tables and Realtionships like belwo,
+
+  Movies (
+    id INT,
+    title TEXT,
+    ...
+  );
+  Genre (
+    id INT,
+    movie_id INT,
+    ...
+  );
+
+  Movie --> Many Genres
+
+  Storing image or video:
+    blob --> 
+      https://stackoverflow.com/questions/6472233/can-i-store-images-in-mysql
+    BLOB(size) / TEXT (CDN URL)- images/vidoes
+
+  Reference for DB Designs: 
+  
+  https://www.google.com/search?q=db+design+diagram&sca_esv=37f724872de16756&bih=668&biw=1292&hl=en&sxsrf=ACQVn0-t7zvA3eo8IAnqzjMsPsY9A7dw1A%3A1707045648965&ei=EHO_ZcW4OqPg2roP85-JqAQ&oq=db+desing+dia&gs_lp=Egxnd3Mtd2l6LXNlcnAiDWRiIGRlc2luZyBkaWEqAggAMgcQABiABBgNMgYQABgWGB4yCxAAGIAEGIoFGIYDMgsQABiABBiKBRiGAzILEAAYgAQYigUYhgMyCxAAGIAEGIoFGIYDSI46UABYjTVwAXgBkAEBmAGIBqAB6TKqAQ0wLjQuMC4yLjQuMi4zuAEDyAEA-AEBwgIKECMYgAQYigUYJ8ICChAAGIAEGIoFGEPCAgsQABiABBiKBRiRAsICBRAAGIAEwgINEAAYgAQYigUYQxixA8ICEBAuGIAEGIoFGEMYsQMYgwHCAgoQABiABBgUGIcCwgIHEAAYgAQYCsICCBAAGBYYHhgKwgIIEC4YFhgeGArCAgoQABgWGB4YDxgKwgIGEAAYHhgNwgIHECEYChigAcICBBAhGBXCAgUQIRifBeIDBBgAIEE&sclient=gws-wiz-serp
+
+
+Next Session:
+
+  SQLBolt: Online to Learn and Exercise on SQL
+
+  create DB
+    https://www.w3schools.com/sql/default.asp
+    syntax: CREATE DATABASE databasename;
+
+    Eg: Create Data base for School Management
+
+    CREATE DATABASE school-mgmt;
+
+  list DB; 
+
+  create table
+
+    rows(inserted, updated, deleted) ( data ), columns(alter) ( specification of the type of data )
+
+    https://www.w3schools.com/sql/sql_create_table.asp
+
+    CREATE TABLE table_name (
+        column1 datatype,
+        column2 datatype,
+        column3 datatype,
+      ....
+    );
+
+    CREATE TABLE Students (
+      StudentId int,
+      LastName varchar(255),
+      FirstName varchar(255),
+      Class int,
+    );
+
+  ALTER TABLE:
+    statement is used to add, delete, or modify columns in an existing table.
+    ALTER TABLE table_name
+    ADD column_name datatype;
+
+    ALTER TABLE table_name
+    DROP COLUMN column_name;
+
+    ALTER TABLE table_name
+    RENAME COLUMN old_name to new_name;
+
+    ALTER TABLE table_name
+    MODIFY COLUMN column_name datatype;
+
+  CRUD --> CREATE, READ, UPDATE, DELETE
+
+  READ:
+    select:
+      all data
+        SELECT * FROM movies;
+
+      single column
+        SELECT title FROM movies;
+
+      multiple columns
+        SELECT title, director FROM movies;
+
+    Filtering:
+      where:
+        select movies from year 1995
+        select movies except with ids 1, 5, 8
+        select the movies which contains WALL in titl string
+
+    Sorting:
+      order by:
+        select * from movies order by Title asc/desc;
+      limit:
+        order and limit the enteries
+      offset:
+        where to start the limit count
+
+    distinct:
+      without duplicate
+      list all directors in alphbetical
+
+    aggregate function:
+      max, sum, min, count
+
+    alias:
+      as syntax to convert the column name
+
+    group by:
+      aggregate function by combing row with condition
+      Reference: https://sqlbolt.com/lesson/select_queries_with_aggregates
+
+Task:
+
